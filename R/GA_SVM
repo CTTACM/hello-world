@@ -1,0 +1,29 @@
+library(mcga)  #调用ga算法包
+#library(GA)
+#library(foreach)
+library(e1071)   #调用支持向量机包e1071，潜在类别分析的函数，短时傅立叶变换，模糊聚类，支持向量机，最短路径计算，袋装聚类，朴素贝叶斯分类器，…
+library(mlbench)  #调mlbench包，内含BreastCancer数据集,(猜想是machine learning benchmark 的缩写)
+
+car<-read.table("http://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data", sep=",")
+test = car[,-7] #提取除第14列以外的数据
+label = car[,7] #提取最后一列数据
+
+Fitness<-function(x){
+  model <- svm(V7 ~ ., data = car,gamma = x[1], C = x[2]) #训练模型
+  pred <- predict(model,test) #用模型预测test数据
+  t=table(pred,label) #使用函数table()来对预测结果和真实结果做出对比展示（混淆矩阵）
+  return (sum(diag(t))/sum(t))
+}
+#x = [1 2]
+#b = Fitness(x)
+m <- mcga( popsize=200, #种群大小
+           chsize=2, #个体大小
+           minval=0.0, #下届
+           maxval=10.0, #上届
+           maxiter=1, #迭代次数
+           crossprob=1.0, #交叉
+           mutateprob=0.01, #变异
+           evalFunc=Fitness)#fitness函数
+cat("Best chromosome:\n")#输出最好的个体
+print(m$population[1,])#这里m$population应该就是种群中第一个（也是最优）的个体。
+cat("Cost: ",m$costs[1],"\n")#输出最小的cost。
