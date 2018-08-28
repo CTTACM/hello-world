@@ -1,0 +1,25 @@
+function [ out ] = HE_FA_CHUAN(  )
+%UNTITLED 此处显示有关此函数的摘要
+%   输出一个合法的小数数组
+T = [1 2 6 11 18 5 19 3 12 17 4 7 20 13 8 14 9 15 10 16];
+lo = length(T)
+fa = zeros(1,20);
+fa(2) = fa(1) + rand(1)*(1 - fa(1));
+fa(6) = fa(1) + rand(1)*(1 - fa(1));
+fa(11) = fa(1) + rand(1)*(1 - fa(1));
+fa(18) = fa(1) + rand(1)*(1 - fa(1));
+fa(5) = fa(1) + rand(1)*(1 - fa(1));
+fa(19) = fa(1) + rand(1)*(1 - fa(1));
+fa(3) = fa(1) + rand(1)*(1 - fa(1));
+A = [fa(2),fa(6),fa()]
+fa(12) = fa(1) + rand(1)*(1 - fa(1));
+fa(17) = 1;
+fa(4) = 1;
+fa(7) = 1;
+fa(20) = 1;
+fa(13) = 1;
+fa(8) = 1;
+fa(14) = 1;
+
+end
+
